@@ -24,18 +24,18 @@ int main(){
     xbee_reply[0] = '\0';
     xbee_reply[1] = '\0';
   }
-  xbee.printf("ATMY 0x40\r\n");
+  xbee.printf("ATMY 0x340\r\n");
   reply_messange(xbee_reply, "setting MY : <REMOTE_MY>");
-  xbee.printf("ATDL 0x41\r\n");
+  xbee.printf("ATDL 0x341\r\n");
   reply_messange(xbee_reply, "setting DL : <REMOTE_DL>");
   xbee.printf("ATID 0x0\r\n");
   reply_messange(xbee_reply, "setting PAN ID : <PAN_ID>");
   xbee.printf("ATWR\r\n");
   reply_messange(xbee_reply, "write config");
-  xbee.printf("ATMY\r\n");
-  check_addr(xbee_reply, "MY");
-  xbee.printf("ATDL\r\n");
-  check_addr(xbee_reply, "DL");
+  // xbee.printf("ATMY\r\n");
+  // check_addr(xbee_reply, "MY");
+  // xbee.printf("ATDL\r\n");
+  // check_addr(xbee_reply, "DL");
   xbee.printf("ATCN\r\n");
   reply_messange(xbee_reply, "exit AT mode");
   xbee.getc();
@@ -63,6 +63,7 @@ void xbee_rx(void)
       buf[i] = pc.putc(recv);
     }
     RPC::call(buf, outbuf);
+    
     pc.printf("%s\r\n", outbuf);
     wait(0.1);
   }
